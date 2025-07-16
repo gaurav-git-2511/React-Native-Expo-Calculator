@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const Calculator = () => {
   const [input, setInput] = useState("");
@@ -19,19 +14,19 @@ const Calculator = () => {
   ];
 
   const handlePress = (btn: string) => {
-    if(btn === "C"){
+    if (btn === "C") {
       setInput("");
       setResult("");
-    } else if(btn === "=") {
-      try{
+    } else if (btn === "=") {
+      try {
         setResult(eval(input).toString());
-      } catch{
+      } catch {
         setResult("Error");
       }
-    } else{
+    } else {
       setInput(input + btn);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -46,10 +41,15 @@ const Calculator = () => {
             <View key={rowIndex} style={styles.row}>
               {row.map((btn, colIndex) => {
                 return (
-                  <TouchableOpacity key={colIndex} style={styles.button}
-                  onPress={() => {
-                    btn === "Del"? setInput(input.slice(0, -1)) : handlePress(btn)
-                  }}>
+                  <TouchableOpacity
+                    key={colIndex}
+                    style={styles.button}
+                    onPress={() => {
+                      btn === "Del"
+                        ? setInput(input.slice(0, -1))
+                        : handlePress(btn);
+                    }}
+                  >
                     <Text style={styles.buttonText}>{btn}</Text>
                   </TouchableOpacity>
                 );
@@ -65,42 +65,54 @@ const Calculator = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#222",
+    backgroundColor: "#1e1e1e",
     justifyContent: "flex-end",
+    paddingHorizontal: 10,
   },
   result: {
     padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#444",
+    marginBottom: 10,
   },
   inputText: {
-    fontSize: 30,
-    color: "#fff",
+    fontSize: 36,
+    color: "#bbb",
     textAlign: "right",
   },
   resultText: {
-    fontSize: 40,
-    color: "#0f0",
+    fontSize: 48,
+    color: "#00ff88",
     textAlign: "right",
+    fontWeight: "bold",
+    marginTop: 10,
   },
   buttons: {
     paddingBottom: 20,
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginBottom: 10,
+    justifyContent: "space-between",
+    marginBottom: 15,
   },
   button: {
     backgroundColor: "#333",
-    padding: 20,
-    borderRadius: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 25,
+    borderRadius: 20,
     minWidth: 70,
     alignItems: "center",
-    opacity: 0.8,
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 2, height: 2 },
+    shadowRadius: 4,
+    elevation: 4,
   },
   buttonText: {
-    fontSize: 22,
+    fontSize: 24,
     color: "#fff",
+    fontWeight: "500",
   },
 });
-
 export default Calculator;
